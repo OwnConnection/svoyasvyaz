@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>СвойСвязь</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div id="auth-screen" class="auth-screen">
+      <form id="auth-form" class="auth-card">
+        <p class="eyebrow">свой русский мессенджер</p>
+        <h1>СвойСвязь</h1>
+        <p class="auth-copy">
+          Войдите в профиль, чтобы открыть личные диалоги, группы и историю сообщений.
+        </p>
+
+        <label class="field">
+          <span>Логин</span>
+          <input id="login-username" type="text" maxlength="20" placeholder="anna_dev" required />
+        </label>
+
+        <label class="field">
+          <span>Отображаемое имя</span>
+          <input id="login-display-name" type="text" maxlength="40" placeholder="Анна" required />
+        </label>
+
+        <button class="primary-button" type="submit">Открыть СвойСвязь</button>
+        <p id="status-text" class="muted">Подключение к серверу...</p>
+      </form>
+    </div>
+
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="brand">
+          <div class="brand__badge" id="profile-badge">С</div>
+          <div>
+            <p class="eyebrow">ваш профиль</p>
+            <h2 id="profile-name">СвойСвязь</h2>
+            <p id="profile-username" class="muted">@user</p>
+          </div>
+        </div>
+
+        <section class="panel">
+          <div class="section-title">
+            <h3>Профиль</h3>
+          </div>
+          <form id="profile-form" class="stack-form">
+            <input id="profile-display-name-input" type="text" maxlength="40" placeholder="Ваше имя" />
+            <textarea id="profile-bio-input" rows="3" maxlength="160" placeholder="О себе"></textarea>
+            <label class="file-field">
+              <span>Аватарка</span>
+              <input id="profile-avatar-input" type="file" accept="image/*" />
+            </label>
+            <button type="submit" class="secondary-button">Сохранить профиль</button>
+          </form>
+        </section>
+
+        <section class="panel">
+          <div class="section-title">
+            <h3>Чаты</h3>
+            <span id="chat-count">0</span>
+          </div>
+          <input id="chat-search" class="search-input" type="text" placeholder="Поиск по чатам..." />
+          <div id="chat-list" class="chat-list"></div>
+        </section>
+
+        <section class="panel">
+          <div class="section-title">
+            <h3>Пользователи</h3>
+            <span id="directory-count">0</span>
+          </div>
+          <div id="directory-list" class="directory-list"></div>
+        </section>
+
+        <section class="panel">
+          <div class="section-title">
+            <h3>Новая группа</h3>
+          </div>
+          <form id="group-form" class="stack-form">
+            <input id="group-title" type="text" maxlength="40" placeholder="Название группы" />
+            <textarea
+              id="group-members"
+              rows="3"
+              placeholder="Участники через запятую: ivan, olga"
+            ></textarea>
+            <button type="submit" class="secondary-button">Создать группу</button>
+          </form>
+        </section>
+
+        <section class="panel">
+          <div class="section-title">
+            <h3>Новый канал</h3>
+          </div>
+          <form id="channel-form" class="stack-form">
+            <input id="channel-title" type="text" maxlength="40" placeholder="Название канала" />
+            <textarea id="channel-description" rows="2" maxlength="120" placeholder="Описание канала"></textarea>
+            <textarea
+              id="channel-members"
+              rows="3"
+              placeholder="Подписчики через запятую: ivan, olga"
+            ></textarea>
+            <button type="submit" class="secondary-button">Создать канал</button>
+          </form>
+        </section>
+      </aside>
+
+      <main class="main-panel">
+        <header class="chat-header panel">
+          <div>
+            <p class="eyebrow">диалог</p>
+            <h2 id="active-chat-title">Выберите чат</h2>
+            <p id="active-chat-meta" class="muted">Личные чаты и группы появятся здесь.</p>
+            <div id="pinned-message-bar" class="pinned-message-bar"></div>
+          </div>
+          <div class="chat-header__actions">
+            <div id="typing-indicator" class="typing-indicator"></div>
+            <div id="call-actions" class="call-actions">
+              <button id="start-audio-call" class="icon-button" type="button" title="Аудиозвонок" disabled>
+                <span aria-hidden="true">&#128222;</span>
+                <span class="visually-hidden">Начать аудиозвонок</span>
+              </button>
+              <button id="start-video-call" class="icon-button" type="button" title="Видеозвонок" disabled>
+                <span aria-hidden="true">&#127909;</span>
+                <span class="visually-hidden">Начать видеозвонок</span>
+              </button>
+            </div>
+          </div>
+        </header>
+
+        <section class="content-grid">
+          <div class="messages-panel panel">
+            <div id="message-list" class="message-list"></div>
+            <div id="reply-bar" class="reply-bar"></div>
+
+            <form id="composer-form" class="composer">
+              <label class="icon-button icon-button--file composer__file" for="attachment-input" title="Прикрепить файл">
+                <span aria-hidden="true">&#128206;</span>
+                <span class="visually-hidden">Прикрепить файл</span>
+                <input id="attachment-input" type="file" accept="image/*,audio/*,.pdf,.txt,.doc,.docx,.zip" multiple />
+              </label>
+              <button id="record-voice-button" class="icon-button" type="button" title="Голосовое сообщение">
+                <span aria-hidden="true">&#127897;</span>
+                <span class="visually-hidden">Голосовое сообщение</span>
+              </button>
+              <input
+                id="message-input"
+                type="text"
+                maxlength="2000"
+                placeholder="Введите сообщение..."
+                disabled
+              />
+              <button id="send-button" class="icon-button icon-button--send" type="submit" disabled title="Отправить">
+                <svg aria-hidden="true" viewBox="0 0 24 24" class="icon-svg">
+                  <path d="M21.8 3.6 2.9 10.8c-.8.3-.8 1.4 0 1.7l7.4 2.7 2.7 7.4c.3.8 1.4.8 1.7 0l7.2-18.9c.3-.8-.5-1.6-1.4-1.3Z" fill="currentColor"/>
+                  <path d="M10.3 15.2 21 4.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+                <span class="visually-hidden">Отправить</span>
+              </button>
+            </form>
+            <div id="attachment-preview" class="attachment-preview"></div>
+          </div>
+
+          <aside class="details-panel panel">
+            <div class="section-title">
+              <h3>Чат</h3>
+            </div>
+            <input id="message-search" class="search-input" type="text" placeholder="Поиск по сообщениям..." />
+            <div id="user-info-card" class="info-card"></div>
+            <div id="chat-members" class="member-list"></div>
+          </aside>
+        </section>
+      </main>
+    </div>
+
+    <div id="message-context-menu" class="message-context-menu" hidden>
+      <button type="button" data-context-action="reply">Ответить</button>
+      <button type="button" data-context-action="forward">Переслать</button>
+      <button type="button" data-context-action="pin">Закрепить</button>
+      <button type="button" data-context-action="edit">Изменить</button>
+      <button type="button" data-context-action="delete">Удалить</button>
+    </div>
+
+    <div id="image-viewer" class="image-viewer" aria-hidden="true">
+      <div class="image-viewer__backdrop"></div>
+      <div class="image-viewer__dialog">
+        <div class="image-viewer__header">
+          <div id="image-viewer-title" class="image-viewer__title">Изображение</div>
+          <button id="image-viewer-close" class="image-viewer__close" type="button" aria-label="Закрыть изображение">
+            &times;
+          </button>
+        </div>
+        <img id="image-viewer-img" class="image-viewer__img" alt="Просмотр изображения" />
+      </div>
+    </div>
+
+    <div id="call-overlay" class="call-overlay" aria-hidden="true">
+      <div class="call-overlay__backdrop"></div>
+      <section class="call-panel" aria-live="polite">
+        <div class="call-panel__glow"></div>
+        <div class="call-panel__top">
+          <p id="call-eyebrow" class="eyebrow">Звонок</p>
+          <button id="close-call-overlay" class="call-close-button" type="button" aria-label="Свернуть звонок">
+            &times;
+          </button>
+        </div>
+        <div class="call-panel__identity">
+          <div id="call-avatar" class="call-avatar">?</div>
+          <div class="call-rings" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </div>
+        <h3 id="call-title" class="call-title">Звонок недоступен</h3>
+        <p id="call-status" class="call-status">Откройте личный чат, чтобы позвонить.</p>
+
+        <div id="call-stage" class="call-stage">
+          <video id="remote-video" class="call-video call-video--remote" autoplay playsinline></video>
+          <video id="local-video" class="call-video call-video--local" autoplay playsinline muted></video>
+        </div>
+
+        <div class="call-chip-row">
+          <span id="call-mode-chip" class="call-chip">Аудио</span>
+          <span id="call-chat-chip" class="call-chip">Личный чат</span>
+        </div>
+
+        <div class="call-toggle-row">
+          <button id="toggle-mic-button" class="call-toggle-button" type="button" hidden>
+            Микрофон включён
+          </button>
+          <button id="toggle-speaker-button" class="call-toggle-button" type="button" hidden>
+            Громкоговоритель выключен
+          </button>
+        </div>
+
+        <div class="call-actions call-actions--overlay">
+          <button id="accept-call-button" class="secondary-button" type="button" hidden>Ответить</button>
+          <button id="decline-call-button" class="secondary-button" type="button" hidden>Отклонить</button>
+          <button id="end-call-button" class="primary-button" type="button" hidden>Завершить</button>
+        </div>
+      </section>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/app.js"></script>
+  </body>
+</html>

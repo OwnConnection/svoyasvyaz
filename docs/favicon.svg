@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
+  <title>СвойСвязь Favicon</title>
+  <defs>
+    <linearGradient id="bg" x1="10%" y1="10%" x2="90%" y2="90%">
+      <stop offset="0%" stop-color="#db8340" />
+      <stop offset="100%" stop-color="#b95c2e" />
+    </linearGradient>
+  </defs>
+  <rect x="4" y="4" width="56" height="56" rx="18" fill="url(#bg)" />
+  <path
+    d="M19 22.5c0-4.14 3.36-7.5 7.5-7.5h11c4.14 0 7.5 3.36 7.5 7.5v7c0 4.14-3.36 7.5-7.5 7.5H31l-7.93 6.26c-.98.77-2.41.08-2.41-1.17V37.2A7.47 7.47 0 0 1 19 30.5v-8Z"
+    fill="#fff7ef"
+  />
+  <path
+    d="M34.74 22.6 28.6 30.7h4.7l-4.04 10.7 6.14-8.1H30.7l4.04-10.7Z"
+    fill="#b95c2e"
+  />
+</svg>

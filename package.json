@@ -1,0 +1,21 @@
+{
+  "name": "svoy-svyaz",
+  "version": "1.0.0",
+  "description": "Полноценный локальный мессенджер с комнатами и обменом сообщениями в реальном времени.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": [
+    "messenger",
+    "chat",
+    "socket.io",
+    "russian"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^5.2.1",
+    "socket.io": "^4.8.3"
+  }
+}

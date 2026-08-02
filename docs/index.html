@@ -1,0 +1,251 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>СвояСвязь</title>
+    <meta
+      name="description"
+      content="СвояСвязь — браузерный мессенджер с поиском пользователей и личными переписками."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <link rel="stylesheet" href="./styles.css?v=20260409-5" />
+  </head>
+  <body>
+    <div id="setup-banner" class="setup-banner panel" hidden>
+      <div>
+        <p class="eyebrow">настройка github pages</p>
+        <h2>Подключите Supabase</h2>
+        <p class="muted">
+          Реальный поиск людей и личные переписки не работают на одном только GitHub Pages. Для этого нужен общий backend.
+          Я уже подготовил фронтенд под Supabase: заполните файл <code>docs/supabase-config.js</code> и выполните SQL из
+          <code>docs/supabase-schema.sql</code>.
+        </p>
+      </div>
+    </div>
+
+    <div id="auth-screen" class="auth-screen">
+      <div class="auth-card">
+        <p class="eyebrow">браузерная версия мессенджера</p>
+        <h1>СвояСвязь</h1>
+        <p class="auth-copy">
+          Здесь можно находить пользователей по имени и начинать личные переписки прямо на сайте.
+        </p>
+
+        <div class="auth-tabs">
+          <button id="register-tab" class="tab-button tab-button--active" type="button">Регистрация</button>
+          <button id="login-tab" class="tab-button" type="button">Вход</button>
+        </div>
+
+        <form id="register-form" class="stack-form">
+          <input id="register-email" type="email" placeholder="email@example.com" autocomplete="email" required />
+          <input id="register-password" type="password" placeholder="Пароль" autocomplete="new-password" required />
+          <input id="register-username" type="text" maxlength="24" placeholder="Логин: anna_dev" required />
+          <input id="register-display-name" type="text" maxlength="40" placeholder="Отображаемое имя" required />
+          <button class="primary-button" type="submit">Создать аккаунт</button>
+        </form>
+
+        <form id="login-form" class="stack-form" hidden>
+          <input id="login-email" type="email" placeholder="email@example.com" autocomplete="email" required />
+          <input id="login-password" type="password" placeholder="Пароль" autocomplete="current-password" required />
+          <button class="primary-button" type="submit">Войти</button>
+        </form>
+
+        <p id="auth-status" class="muted">После подключения Supabase здесь можно будет зарегистрироваться и писать другим людям.</p>
+      </div>
+    </div>
+
+    <div id="app-shell" class="app-shell" hidden>
+      <aside class="sidebar">
+        <div class="brand">
+          <div class="brand__badge" id="profile-badge">
+            <img id="profile-avatar" class="brand__avatar" alt="Аватар профиля" hidden />
+            <span id="profile-badge-letter">С</span>
+          </div>
+          <div>
+            <p class="eyebrow">ваш профиль</p>
+            <h2 id="profile-name">СвояСвязь</h2>
+            <p id="profile-username" class="muted">@user</p>
+          </div>
+        </div>
+
+        <section class="panel">
+          <div class="section-title">
+            <h3>Профиль</h3>
+            <button id="logout-button" class="text-button" type="button">Выйти</button>
+          </div>
+          <form id="profile-form" class="stack-form">
+            <input id="profile-display-name-input" type="text" maxlength="40" placeholder="Ваше имя" />
+            <textarea id="profile-bio-input" rows="3" maxlength="160" placeholder="О себе"></textarea>
+            <label class="file-picker">
+              <span class="secondary-button">Выбрать аватарку</span>
+              <input id="profile-avatar-input" type="file" accept="image/*" hidden />
+            </label>
+            <div id="profile-avatar-status" class="muted">Можно выбрать любое изображение, которое поддерживает браузер.</div>
+            <button type="submit" class="secondary-button">Сохранить профиль</button>
+          </form>
+          <div class="notifications-box">
+            <div>
+              <div class="info-card__title">Уведомления</div>
+              <div id="notification-status" class="muted">Разрешение ещё не выдано.</div>
+            </div>
+            <button id="enable-notifications" class="secondary-button" type="button">Включить</button>
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="section-title">
+            <h3>Найти человека</h3>
+          </div>
+          <form id="user-search-form" class="stack-form stack-form--inline">
+            <input id="user-search-input" type="text" maxlength="40" placeholder="Логин или имя пользователя" />
+            <button class="secondary-button" type="submit">Найти</button>
+          </form>
+          <div id="search-results" class="chat-list search-results"></div>
+        </section>
+
+        <section class="panel">
+          <div class="section-title">
+            <h3>Группы и каналы</h3>
+          </div>
+          <form id="room-form" class="stack-form">
+            <select id="room-type">
+              <option value="group">Группа</option>
+              <option value="channel">Канал</option>
+            </select>
+            <input id="room-title" type="text" maxlength="60" placeholder="Название группы или канала" />
+            <input id="room-members" type="text" maxlength="240" placeholder="Участники: anna_dev, ivan, maria" />
+            <button class="secondary-button" type="submit">Создать</button>
+          </form>
+          <div id="room-status" class="muted">Для канала писать сообщения сможет создатель, участники будут читать.</div>
+        </section>
+
+        <section class="panel">
+          <div class="section-title">
+            <h3>Диалоги</h3>
+            <button id="refresh-chats" class="text-button" type="button">Обновить</button>
+          </div>
+          <div id="chat-list" class="chat-list"></div>
+        </section>
+
+        <section class="panel">
+          <div class="section-title">
+            <h3>Поиск сообщений</h3>
+          </div>
+          <form id="message-search-form" class="stack-form stack-form--inline">
+            <input id="message-search-input" type="text" maxlength="120" placeholder="Текст сообщения" />
+            <button class="secondary-button" type="submit">Искать</button>
+          </form>
+          <div id="message-search-results" class="chat-list search-results"></div>
+        </section>
+      </aside>
+
+      <main class="main-panel">
+        <header class="chat-header panel">
+          <div>
+            <p class="eyebrow">личная переписка</p>
+            <h2 id="active-chat-title">Выберите диалог</h2>
+            <p id="active-chat-meta" class="muted">Найдите пользователя слева и откройте переписку.</p>
+          </div>
+          <div class="header-actions">
+            <button id="call-button" class="icon-button" type="button" title="Позвонить" disabled>
+              <svg aria-hidden="true" viewBox="0 0 24 24" class="icon-svg">
+                <path d="M6.7 4.5h2.6c.4 0 .8.3.9.7l.8 3.4c.1.4 0 .8-.3 1.1l-1.5 1.5a14.5 14.5 0 0 0 5.6 5.6l1.5-1.5c.3-.3.7-.4 1.1-.3l3.4.8c.4.1.7.5.7.9v2.6c0 .5-.4 1-.9 1C11 21.2 2.8 13 2.8 5.4c0-.5.4-.9.9-.9Z" fill="currentColor"></path>
+              </svg>
+              <span class="visually-hidden">Позвонить</span>
+            </button>
+            <button id="refresh-messages" class="text-button" type="button">Обновить</button>
+          </div>
+        </header>
+
+        <section class="content-grid">
+          <div class="messages-panel panel">
+            <div id="message-list" class="message-list"></div>
+            <form id="composer-form" class="composer">
+              <label class="icon-button" title="Прикрепить файл">
+                <input id="attachment-input" type="file" hidden />
+                <svg aria-hidden="true" viewBox="0 0 24 24" class="icon-svg">
+                  <path d="M16.5 6.5 9.41 13.59a3 3 0 1 0 4.24 4.24l7.08-7.09a5 5 0 0 0-7.07-7.07L5.88 11.44a7 7 0 1 0 9.9 9.9l6.36-6.36" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"></path>
+                </svg>
+              </label>
+              <input id="message-input" type="text" maxlength="2000" placeholder="Введите сообщение..." disabled />
+              <button id="send-button" class="icon-button icon-button--send" type="submit" disabled title="Отправить">
+                <svg aria-hidden="true" viewBox="0 0 24 24" class="icon-svg">
+                  <path d="M21.8 3.6 2.9 10.8c-.8.3-.8 1.4 0 1.7l7.4 2.7 2.7 7.4c.3.8 1.4.8 1.7 0l7.2-18.9c.3-.8-.5-1.6-1.4-1.3Z" fill="currentColor"></path>
+                  <path d="M10.3 15.2 21 4.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
+                </svg>
+                <span class="visually-hidden">Отправить</span>
+              </button>
+            </form>
+            <button id="cancel-edit-button" class="text-button" type="button" hidden>Отменить редактирование</button>
+            <div id="attachment-status" class="muted" hidden>Файл не выбран.</div>
+          </div>
+
+          <aside class="details-panel panel">
+            <div class="section-title">
+              <h3>Информация</h3>
+            </div>
+            <div id="chat-info-card" class="info-card"></div>
+            <section class="info-card">
+              <div class="section-title">
+                <div class="info-card__title">Стикеры</div>
+              </div>
+              <form id="sticker-form" class="stack-form">
+                <input id="sticker-title-input" type="text" maxlength="40" placeholder="Название стикера" />
+                <label class="file-picker">
+                  <span class="secondary-button">Выбрать стикер</span>
+                  <input id="sticker-file-input" type="file" accept="image/*" hidden />
+                </label>
+                <button id="save-sticker-button" type="submit" class="secondary-button">Сохранить стикер</button>
+              </form>
+              <div id="sticker-status" class="muted">Загрузите PNG, WEBP или другое изображение и отправляйте его в чат.</div>
+              <div id="sticker-gallery" class="sticker-gallery"></div>
+            </section>
+            <section class="info-card">
+              <div class="section-title">
+                <div class="info-card__title">Звонки</div>
+              </div>
+              <div id="call-history-list" class="call-history-list"></div>
+            </section>
+            <div id="app-status" class="status-box muted">Ожидание подключения.</div>
+          </aside>
+        </section>
+      </main>
+    </div>
+
+    <div id="call-overlay" class="call-overlay" hidden>
+      <div class="call-card">
+        <div class="call-card__backdrop"></div>
+        <div class="call-card__body">
+          <div class="call-card__halo"></div>
+          <div class="call-avatar" id="call-avatar-shell">
+            <img id="call-avatar-image" class="call-avatar__image" alt="Аватар собеседника" hidden />
+            <span id="call-avatar-letter">С</span>
+          </div>
+          <p id="call-eyebrow" class="eyebrow">аудиозвонок</p>
+          <h2 id="call-title">Звонок</h2>
+          <p id="call-subtitle" class="muted">Подключение...</p>
+          <div id="call-state-badge" class="call-state-badge">Ожидание</div>
+          <div class="call-actions">
+            <button id="toggle-mic" class="secondary-button" type="button" hidden>Выключить микрофон</button>
+            <button id="accept-call" class="primary-button" type="button" hidden>Ответить</button>
+            <button id="decline-call" class="secondary-button" type="button" hidden>Отклонить</button>
+            <button id="hangup-call" class="danger-button" type="button" hidden>Завершить</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <audio id="remote-audio" autoplay playsinline></audio>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="./supabase-config.js"></script>
+    <script src="./app.js?v=20260409-5"></script>
+  </body>
+</html>

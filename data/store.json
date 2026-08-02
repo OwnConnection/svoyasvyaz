@@ -1,0 +1,203 @@
+{
+  "users": [
+    {
+      "id": "user-system",
+      "username": "system",
+      "displayName": "СвойСвязь",
+      "bio": "Системный аккаунт",
+      "avatarColor": "#BB5A2C",
+      "createdAt": "2026-04-08T17:55:44.674Z",
+      "lastSeenAt": "2026-04-08T17:55:44.674Z"
+    },
+    {
+      "id": "user-1775671357975-30975314",
+      "username": "timofey",
+      "displayName": "Тимоша2",
+      "bio": "Новый пользователь СвойСвязь",
+      "avatarColor": "#3674B5",
+      "createdAt": "2026-04-08T18:02:37.975Z",
+      "lastSeenAt": "2026-04-08T19:56:28.919Z",
+      "avatarUrl": "/uploads/avatar-1775676338454-caaa30.png"
+    },
+    {
+      "id": "user-1775671359925-9e26e45c",
+      "username": "timofey2",
+      "displayName": "Тимофей",
+      "bio": "Новый пользователь СвойСвязь",
+      "avatarColor": "#0E9F6E",
+      "createdAt": "2026-04-08T18:02:39.925Z",
+      "lastSeenAt": "2026-04-08T20:01:04.288Z",
+      "avatarUrl": "/uploads/avatar-1775676390372-589462.jpeg"
+    }
+  ],
+  "chats": [
+    {
+      "id": "chat-welcome",
+      "type": "group",
+      "title": "Общий чат",
+      "description": "Главная комната для всех пользователей",
+      "memberIds": [
+        "user-system",
+        "user-1775671357975-30975314",
+        "user-1775671359925-9e26e45c"
+      ],
+      "adminIds": [
+        "user-system"
+      ],
+      "createdAt": "2026-04-08T17:55:44.674Z",
+      "updatedAt": "2026-04-08T17:55:44.674Z"
+    },
+    {
+      "id": "chat-1775671397421-2b17c30b",
+      "type": "direct",
+      "title": "Личный чат",
+      "description": "Личный диалог",
+      "memberIds": [
+        "user-1775671359925-9e26e45c",
+        "user-1775671357975-30975314"
+      ],
+      "adminIds": [
+        "user-1775671359925-9e26e45c"
+      ],
+      "createdAt": "2026-04-08T18:03:17.421Z",
+      "updatedAt": "2026-04-08T19:42:44.456Z"
+    }
+  ],
+  "messages": [
+    {
+      "id": "msg-welcome",
+      "chatId": "chat-welcome",
+      "authorId": "user-system",
+      "text": "Добро пожаловать в СвойСвязь. Здесь уже есть личные диалоги, группы, поиск, редактирование и удаление сообщений.",
+      "createdAt": "2026-04-08T17:55:44.674Z",
+      "updatedAt": "2026-04-08T17:55:44.674Z",
+      "deletedAt": null
+    },
+    {
+      "id": "msg-1775671426940-623ce3ae",
+      "chatId": "chat-1775671397421-2b17c30b",
+      "authorId": "user-1775671357975-30975314",
+      "text": "Привет",
+      "createdAt": "2026-04-08T18:03:46.940Z",
+      "updatedAt": "2026-04-08T18:03:46.940Z",
+      "deletedAt": null
+    },
+    {
+      "id": "msg-1775671439396-c70e6f1c",
+      "chatId": "chat-1775671397421-2b17c30b",
+      "authorId": "user-1775671359925-9e26e45c",
+      "text": "Здарова",
+      "createdAt": "2026-04-08T18:03:59.396Z",
+      "updatedAt": "2026-04-08T18:03:59.396Z",
+      "deletedAt": null
+    },
+    {
+      "id": "msg-1775674816781-38a2682c",
+      "chatId": "chat-1775671397421-2b17c30b",
+      "authorId": "user-1775671357975-30975314",
+      "text": "ии",
+      "attachments": [],
+      "createdAt": "2026-04-08T19:00:16.781Z",
+      "updatedAt": "2026-04-08T19:00:16.781Z",
+      "deletedAt": null
+    },
+    {
+      "id": "msg-1775675856052-5cca1e19",
+      "chatId": "chat-1775671397421-2b17c30b",
+      "authorId": "user-1775671359925-9e26e45c",
+      "text": "Привет",
+      "attachments": [],
+      "replyToMessageId": null,
+      "forwardedFromMessageId": null,
+      "createdAt": "2026-04-08T19:17:36.052Z",
+      "updatedAt": "2026-04-08T19:17:36.052Z",
+      "deletedAt": null
+    },
+    {
+      "id": "msg-1775676259442-bc3089f2",
+      "chatId": "chat-1775671397421-2b17c30b",
+      "authorId": "user-1775671357975-30975314",
+      "text": "Привет",
+      "attachments": [],
+      "replyToMessageId": "msg-1775671439396-c70e6f1c",
+      "forwardedFromMessageId": null,
+      "createdAt": "2026-04-08T19:24:19.442Z",
+      "updatedAt": "2026-04-08T19:24:19.442Z",
+      "deletedAt": null
+    },
+    {
+      "id": "msg-1775676433727-79848d35",
+      "chatId": "chat-1775671397421-2b17c30b",
+      "authorId": "user-1775671359925-9e26e45c",
+      "text": "",
+      "attachments": [
+        {
+          "id": "att-1775676433727-d00fb377",
+          "name": "HAZA FUNK (4) q.mp3",
+          "type": "audio/mpeg",
+          "size": 5213671,
+          "url": "/uploads/attachment-1775676433724-33612b.mpeg",
+          "isImage": false
+        }
+      ],
+      "replyToMessageId": null,
+      "forwardedFromMessageId": null,
+      "createdAt": "2026-04-08T19:27:13.727Z",
+      "updatedAt": "2026-04-08T19:27:13.727Z",
+      "deletedAt": null
+    },
+    {
+      "id": "msg-1775677364456-b4053689",
+      "chatId": "chat-1775671397421-2b17c30b",
+      "authorId": "user-1775671359925-9e26e45c",
+      "text": "",
+      "attachments": [
+        {
+          "id": "att-1775677364456-966893b2",
+          "name": "IMG_2687.PNG",
+          "type": "image/png",
+          "size": 2161190,
+          "url": "/uploads/attachment-1775677364434-66f561.png",
+          "isImage": true
+        }
+      ],
+      "replyToMessageId": null,
+      "forwardedFromMessageId": null,
+      "createdAt": "2026-04-08T19:42:44.456Z",
+      "updatedAt": "2026-04-08T19:42:44.456Z",
+      "deletedAt": null
+    }
+  ],
+  "memberships": [
+    {
+      "chatId": "chat-welcome",
+      "userId": "user-system",
+      "joinedAt": "2026-04-08T17:55:44.674Z",
+      "lastReadAt": "2026-04-08T17:55:44.674Z"
+    },
+    {
+      "chatId": "chat-welcome",
+      "userId": "user-1775671357975-30975314",
+      "joinedAt": "2026-04-08T18:02:37.975Z",
+      "lastReadAt": "2026-04-08T19:25:16.489Z"
+    },
+    {
+      "chatId": "chat-welcome",
+      "userId": "user-1775671359925-9e26e45c",
+      "joinedAt": "2026-04-08T18:02:39.925Z",
+      "lastReadAt": "2026-04-08T19:24:53.074Z"
+    },
+    {
+      "chatId": "chat-1775671397421-2b17c30b",
+      "userId": "user-1775671359925-9e26e45c",
+      "joinedAt": "2026-04-08T18:03:17.421Z",
+      "lastReadAt": "2026-04-08T19:59:17.768Z"
+    },
+    {
+      "chatId": "chat-1775671397421-2b17c30b",
+      "userId": "user-1775671357975-30975314",
+      "joinedAt": "2026-04-08T18:03:17.421Z",
+      "lastReadAt": "2026-04-08T19:56:29.168Z"
+    }
+  ]
+}
